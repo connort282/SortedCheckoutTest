@@ -34,17 +34,31 @@ namespace SortedCheckoutTest
                 Console.Write("Please enter selection: ");
                 var enteredText = Console.ReadLine();
 
-                switch (enteredText)
+                if (string.IsNullOrWhiteSpace(enteredText))
                 {
-                    case "**":
-                        Console.WriteLine($"The current total is: {checkout.GetTotalPrice()}");
-                        break;
-                    default:
-                        if (checkout.AddItemToBasket(enteredText) == false)
-                        {
-                            Console.WriteLine("Unable to find SKU");
-                        }
-                        break;
+                    Console.WriteLine("Empty strings are unsupported, please try again");
+                    continue;
+                }
+
+                try
+                {
+                    switch (enteredText)
+                    {
+                        case "**":
+                            Console.WriteLine($"The current total is: {checkout.GetTotalPrice()}");
+                            break;
+                        default:
+                            if (checkout.AddItemToBasket(enteredText) == false)
+                            {
+                                Console.WriteLine("Unable to find SKU");
+                            }
+                            break;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine("Error when performing operation.");
+                    Console.WriteLine(ex);
                 }
 
             }
