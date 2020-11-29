@@ -17,7 +17,9 @@ namespace SortedCheckoutTest
             };
 
             IItemLookup itemLookup = new ItemLookup(itemDictionary);
-            ICheckout checkout = new Checkout(itemLookup);
+            SpecialOfferLookup specialOfferLookup = new SpecialOfferLookup(new List<SpecialOffer>());
+
+            ICheckout checkout = new Checkout(itemLookup, specialOfferLookup);
 
             Console.WriteLine("Please scan your items or ** to calculate price");
 

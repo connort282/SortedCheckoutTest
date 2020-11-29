@@ -18,8 +18,9 @@ namespace SortedCheckoutTest.Test
             };
 
             ItemLookup itemLookup = new ItemLookup(items);
+            SpecialOfferLookup specialOfferLookup = new SpecialOfferLookup(new List<SpecialOffer>());
 
-            Checkout checkout = new Checkout(itemLookup);
+            Checkout checkout = new Checkout(itemLookup, specialOfferLookup);
 
             var result = checkout.AddItemToBasket("A99");
 
@@ -33,7 +34,9 @@ namespace SortedCheckoutTest.Test
 
             ItemLookup itemLookup = new ItemLookup(items);
 
-            Checkout checkout = new Checkout(itemLookup);
+            SpecialOfferLookup specialOfferLookup = new SpecialOfferLookup(new List<SpecialOffer>());
+
+            Checkout checkout = new Checkout(itemLookup, specialOfferLookup);
 
             var result = checkout.AddItemToBasket("IDontExist");
 
@@ -41,7 +44,7 @@ namespace SortedCheckoutTest.Test
         }
 
         [Fact]
-        public void GetBasketTotal()
+        public void GetBasketTotalWithoutOffers()
         {
             Dictionary<string, Item> items = new Dictionary<string, Item>()
             {
@@ -49,8 +52,9 @@ namespace SortedCheckoutTest.Test
             };
 
             ItemLookup itemLookup = new ItemLookup(items);
+            SpecialOfferLookup specialOfferLookup = new SpecialOfferLookup(new List<SpecialOffer>());
 
-            Checkout checkout = new Checkout(itemLookup);
+            Checkout checkout = new Checkout(itemLookup, specialOfferLookup);
 
             _ = checkout.AddItemToBasket("A99");
             _ = checkout.AddItemToBasket("A99");
@@ -58,6 +62,33 @@ namespace SortedCheckoutTest.Test
             var result = checkout.GetTotalPrice();
 
             Assert.Equal(1m, result);
+        }
+
+        [Fact]
+        public void GetBasketTotalWithOffers()
+        {
+            Dictionary<string, Item> items = new Dictionary<string, Item>()
+            {
+                {"A99", new Item{SKU = "A99", Price = 0.50m} },
+            };
+
+            List<SpecialOffer> specialOffers = new List<SpecialOffer>()
+            {
+                new SpecialOffer(){SKU = "A99", Quantity = 3, Price = 1.30m },
+            };
+
+            ItemLookup itemLookup = new ItemLookup(items);
+            SpecialOfferLookup specialOfferLookup = new SpecialOfferLookup(specialOffers);
+
+            Checkout checkout = new Checkout(itemLookup, specialOfferLookup);
+
+            _ = checkout.AddItemToBasket("A99");
+            _ = checkout.AddItemToBasket("A99");
+            _ = checkout.AddItemToBasket("A99");
+
+            var result = checkout.GetTotalPrice();
+
+            Assert.Equal(1.30m, result);
         }
     }
 }
