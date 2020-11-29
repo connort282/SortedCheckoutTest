@@ -51,7 +51,13 @@ namespace SortedCheckoutTest.Logic
                 var specialOffer = specialOffers.FirstOrDefault(x => x.SKU == item.Key);
                 if (specialOffer != null)
                 {
-
+                    //Get the number of offers applicable
+                    var findMin = item.Count() / specialOffer.Quantity;
+                    //Get the total value of the offers
+                    total += findMin * specialOffer.Price;
+                    //Calculate what items that are left
+                    var itemsLeft = item.Count() - (findMin * specialOffer.Quantity);
+                    total += itemsLeft * item.First().Price;
                 }
                 else
                 {

@@ -16,8 +16,14 @@ namespace SortedCheckoutTest
                 {"C40", new Item(){SKU = "C40",Price = 0.60m } },
             };
 
+            List<SpecialOffer> specialOffers = new List<SpecialOffer>()
+            {
+                new SpecialOffer(){SKU = "A99", Quantity = 3, Price = 1.30m },
+                new SpecialOffer(){SKU = "B15", Quantity = 2, Price = 0.45m },
+            };
+
             IItemLookup itemLookup = new ItemLookup(itemDictionary);
-            SpecialOfferLookup specialOfferLookup = new SpecialOfferLookup(new List<SpecialOffer>());
+            SpecialOfferLookup specialOfferLookup = new SpecialOfferLookup(specialOffers);
 
             ICheckout checkout = new Checkout(itemLookup, specialOfferLookup);
 
