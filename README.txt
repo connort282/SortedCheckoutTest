@@ -6,6 +6,10 @@ Create a new solution
 	Include a class library for the logic | Added
 	Include a test library for unit tests (feel free to use whatever test library you are most comfortable with) | Added
 Prove you can scan an item at a checkout
+	Adding my own points:
+		Need a class to hold the item information
+		Need a class that can validate and return information about an item
+		State is going to be handled in memory by just maintaining an object
 Prove you can request the total price
 Introduce special offers
 	Amend your prior implementation to consider offers on items
