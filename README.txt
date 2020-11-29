@@ -3,8 +3,8 @@ A supermarket requires a working checkout. MVP is to scan products and periodica
 
 Checklist to follow:
 Create a new solution
-	Include a class library for the logic
-	Include a test library for unit tests (feel free to use whatever test library you are most comfortable with)
+	Include a class library for the logic | Added
+	Include a test library for unit tests (feel free to use whatever test library you are most comfortable with) | Added
 Prove you can scan an item at a checkout
 Prove you can request the total price
 Introduce special offers
