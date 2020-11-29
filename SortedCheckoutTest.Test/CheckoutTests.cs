@@ -39,5 +39,25 @@ namespace SortedCheckoutTest.Test
 
             Assert.False(result);
         }
+
+        [Fact]
+        public void GetBasketTotal()
+        {
+            Dictionary<string, Item> items = new Dictionary<string, Item>()
+            {
+                {"A99", new Item{SKU = "A99", Price = 0.50m} },
+            };
+
+            ItemLookup itemLookup = new ItemLookup(items);
+
+            Checkout checkout = new Checkout(itemLookup);
+
+            _ = checkout.AddItemToBasket("A99");
+            _ = checkout.AddItemToBasket("A99");
+
+            var result = checkout.GetTotalPrice();
+
+            Assert.Equal(1m, result);
+        }
     }
 }

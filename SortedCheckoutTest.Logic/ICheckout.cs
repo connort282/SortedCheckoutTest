@@ -7,5 +7,6 @@ namespace SortedCheckoutTest.Logic
     public interface ICheckout
     {
         bool AddItemToBasket(string SKU);
+        decimal GetTotalPrice();
     }
 }
